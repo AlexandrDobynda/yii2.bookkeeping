@@ -27,6 +27,17 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVE = 10;
 
 
+
+    public static function create(string $username, string $email, string $password) :self
+    {
+        $user = new static();
+        $user->username = $username;
+        $user->email = $email;
+        $user->setPassword($password);
+        $user->generateAuthKey();
+
+        return $user;
+    }
     /**
      * {@inheritdoc}
      */
