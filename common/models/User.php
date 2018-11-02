@@ -203,4 +203,20 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    public function requestPasswordReset()
+    {
+        if (!$this->isPasswordResetTokenValid($this->password_reset_token)) {
+            $this->generatePasswordResetToken();
+        }
+    }
+
+    public function resetPassword($password): void
+    {
+        if (empty($this->password_reset_token)) {
+            throw new \DomainException('Password resetting is not requested');
+        }
+        $this->setPassword($password);
+        $this->password_reset_token = null;
+    }
 }
