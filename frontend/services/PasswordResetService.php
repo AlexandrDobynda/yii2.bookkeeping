@@ -1,6 +1,6 @@
 <?php
 
-namespace services;
+namespace frontend\services;
 
 use Yii;
 use common\models\User;
@@ -12,7 +12,7 @@ class PasswordResetService
     /**
      * @param PasswordResetRequestForm $form
      */
-    public function requset(PasswordResetRequestForm $form): void
+    public function request(PasswordResetRequestForm $form)
     {
         /* @var $user User */
         $user = User::findOne([

@@ -44,6 +44,8 @@ return [
                 '' => 'site/index',
                 '<_a:about|contact|signup|login|logout>' => 'site/<_a>',
 
+
+
                 '<_c:[\w\-]+>' => '<_c>/index',
                 '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
                 '<_c:[\w\-]+>/<_a:[\w-]+>' => '<_c>/<_a>',
