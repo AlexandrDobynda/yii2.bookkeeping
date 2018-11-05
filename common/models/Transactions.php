@@ -33,6 +33,7 @@ class Transactions extends \yii\db\ActiveRecord
         return 'transactions';
     }
 
+
     /**
      * {@inheritdoc}
      */

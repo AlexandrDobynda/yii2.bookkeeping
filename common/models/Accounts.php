@@ -49,7 +49,7 @@ class Accounts extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'name' => 'Name',
+            'name' => 'Account',
             'amount' => 'Amount',
             'family_id' => 'Family ID',
         ];
