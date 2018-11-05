@@ -12,6 +12,7 @@ use common\models\Category;
  */
 class CategorySearch extends Category
 {
+
     /**
      * {@inheritdoc}
      */

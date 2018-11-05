@@ -57,6 +57,26 @@ class TransactionsSearch extends Transactions
             'query' => $query,
         ]);
 
+
+        $query->joinWith(['category' => function($query) { $query->from(['category' => 'category']); }]);
+        $dataProvider->sort->attributes['category.name'] = [
+            'asc' => ['category.name' => SORT_ASC],
+            'desc' => ['category.name' => SORT_DESC],
+        ];
+
+
+        $query->joinWith(['account' => function($query) { $query->from(['account' => 'accounts']); }]);
+        $dataProvider->sort->attributes['account.name'] = [
+            'asc' => ['account.name' => SORT_ASC],
+            'desc' => ['account.name' => SORT_DESC],
+        ];
+
+        $query->joinWith(['profile' => function($query) { $query->from(['profile' => 'profile']); }]);
+        $dataProvider->sort->attributes['profile.first_name'] = [
+            'asc' => ['profile.first_name' => SORT_ASC],
+            'desc' => ['profile.first_name' => SORT_DESC],
+        ];
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -67,15 +87,15 @@ class TransactionsSearch extends Transactions
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'user_id' => $this->user_id,
+
             'amount' => $this->amount,
-            'category_id' => $this->category_id,
-            'account_id' => $this->account_id,
-            'profile_id' => $this->profile_id,
+            'category.name' => $this->getAttribute('category.name'),
+            'account.name' => $this->getAttribute('account.name'),
+            'profile.first_name' => $this->getAttribute('profile.first_name'),
+
             'created_at' => $this->created_at,
             'date' => $this->date,
-            'family_id' => $this->family_id,
+
         ]);
 
         return $dataProvider;
