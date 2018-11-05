@@ -12,11 +12,13 @@ use Yii;
  * @property string $name
  * @property int $parent_id
  * @property int $family_id
+ * @property int $profile_id
  *
  * @property User $createdBy
  * @property Family $family
  * @property Category $parent
  * @property Category[] $categories
+ * @property Profile $profile
  * @property Transactions[] $transactions
  */
 class Category extends \yii\db\ActiveRecord
@@ -36,11 +38,12 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             [['created_by'], 'required'],
-            [['created_by', 'parent_id', 'family_id'], 'integer'],
+            [['created_by', 'parent_id', 'family_id', 'profile_id'], 'integer'],
             [['name'], 'string'],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['family_id'], 'exist', 'skipOnError' => true, 'targetClass' => Family::className(), 'targetAttribute' => ['family_id' => 'id']],
             [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['parent_id' => 'id']],
+            [['profile_id'], 'exist', 'skipOnError' => true, 'targetClass' => Profile::className(), 'targetAttribute' => ['profile_id' => 'id']],
         ];
     }
 
@@ -52,9 +55,10 @@ class Category extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'created_by' => 'Created By',
-            'name' => 'Category',
+            'name' => 'Name',
             'parent_id' => 'Parent ID',
             'family_id' => 'Family ID',
+            'profile_id' => 'Profile ID',
         ];
     }
 
@@ -88,6 +92,14 @@ class Category extends \yii\db\ActiveRecord
     public function getCategories()
     {
         return $this->hasMany(Category::className(), ['parent_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::className(), ['id' => 'profile_id']);
     }
 
     /**

@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name:ntext',
             'parent_id',
             'family_id',
+            'profile_id',
         ],
     ]) ?>
 

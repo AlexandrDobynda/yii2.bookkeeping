@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\CategorySearch */
+/* @var $model frontend\models\CategorySearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -24,6 +24,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'parent_id') ?>
 
     <?= $form->field($model, 'family_id') ?>
+
+    <?php // echo $form->field($model, 'profile_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

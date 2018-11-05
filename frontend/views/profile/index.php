@@ -17,6 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create Profile', ['create'], ['class' => 'btn btn-success']) ?>
+
+<!--        --><?//= Html::a('Update', ['update', 'id' => Yii::$app->user->identity->id], ['class' => 'btn btn-primary']) ?>
+
     </p>
 
     <?= GridView::widget([
@@ -27,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 //            'id',
 //            'user_id',
-            'first_name:ntext',
-            'last_name:ntext',
+            'first_name',
+            'last_name',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

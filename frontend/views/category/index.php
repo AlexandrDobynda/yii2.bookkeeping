@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\CategorySearch */
+/* @var $searchModel frontend\models\CategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Categories';
@@ -27,9 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'created_by',
-            'name:text',
+            'name:ntext',
             'parent_id',
             'family_id',
+            'profile.first_name',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
