@@ -1,6 +1,7 @@
 <?php
 namespace common\models;
 
+use frontend\components\behaviors\FamilyBehavior;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -68,6 +69,12 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             TimestampBehavior::className(),
+
+            [
+                'class' => FamilyBehavior::className(),
+//                'userId' => 'id',
+//                'familyId' => 'family_id',
+            ],
         ];
     }
 
