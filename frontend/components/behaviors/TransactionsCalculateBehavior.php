@@ -19,11 +19,11 @@ class TransactionsCalculateBehavior extends Behavior
     public function calculate($event)
     {
         $amount = $event->sender->amount;
-        $accountId = $event->sender->account_id;
-
-        $account = Accounts::findOne($accountId);
+        $account = Accounts::findOne($event->sender->account_id);
         $accountBalance = $account->amount;
-        $account->amount = $accountBalance + $amount;
+        
+        $calculate = $accountBalance + $amount;
+        $account->amount = $calculate;
         $account->save();
     }
 
