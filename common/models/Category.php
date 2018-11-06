@@ -66,7 +66,7 @@ class Category extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'created_by' => 'Created By',
-            'name' => 'Name',
+            'name' => 'Category',
             'parent_id' => 'Parent ID',
             'family_id' => 'Family ID',
             'profile_id' => 'Profile ID',

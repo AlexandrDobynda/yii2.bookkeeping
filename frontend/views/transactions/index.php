@@ -25,15 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-//            'id',
-//            'user_id',
-            'amount',
             'category.name',
+            'amount',
             'account.name',
             'profile.first_name',
-            'created_at',
             'date',
-//            'family_id',
+            [
+                    'attribute' => 'created_at',
+                    'format' => ['date', 'dd.MM.YYYY'],
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
