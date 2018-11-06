@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+
+use frontend\components\behaviors\CategoryBehavior;
 use Yii;
 
 /**
@@ -31,13 +33,22 @@ class Category extends \yii\db\ActiveRecord
         return 'category';
     }
 
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => CategoryBehavior::className(),
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['created_by'], 'required'],
             [['created_by', 'parent_id', 'family_id', 'profile_id'], 'integer'],
             [['name'], 'string'],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
