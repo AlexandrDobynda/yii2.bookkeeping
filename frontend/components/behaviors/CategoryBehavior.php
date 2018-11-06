@@ -12,7 +12,7 @@ class CategoryBehavior extends Behavior
     public function events()
     {
         return [
-            ActiveRecord::EVENT_BEFORE_INSERT => 'addInfo'
+            ActiveRecord::EVENT_BEFORE_INSERT => 'addInfo',
         ];
     }
 

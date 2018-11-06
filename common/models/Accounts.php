@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use frontend\components\behaviors\AccountBehavior;
 use Yii;
 
 /**
@@ -27,13 +28,21 @@ class Accounts extends \yii\db\ActiveRecord
         return 'accounts';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => AccountBehavior::className(),
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['user_id'], 'required'],
             [['user_id', 'amount', 'family_id'], 'integer'],
             [['name'], 'string'],
             [['family_id'], 'exist', 'skipOnError' => true, 'targetClass' => Family::className(), 'targetAttribute' => ['family_id' => 'id']],
