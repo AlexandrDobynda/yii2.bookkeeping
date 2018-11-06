@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use frontend\components\behaviors\TransactionsCalculateBehavior;
 use frontend\components\behaviors\TransactionsInfoBehavior;
 use Yii;
 
@@ -38,9 +39,8 @@ class Transactions extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            [
-                'class' => TransactionsInfoBehavior::className(),
-            ],
+            TransactionsInfoBehavior::className(),
+            TransactionsCalculateBehavior::className(),
         ];
     }
 

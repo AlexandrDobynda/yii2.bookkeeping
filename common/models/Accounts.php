@@ -31,9 +31,9 @@ class Accounts extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            [
-                'class' => AccountBehavior::className(),
-            ],
+
+            AccountBehavior::className(),
+
         ];
     }
 

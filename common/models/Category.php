@@ -37,9 +37,7 @@ class Category extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            [
-                'class' => CategoryBehavior::className(),
-            ],
+            CategoryBehavior::className(),
         ];
     }
 
