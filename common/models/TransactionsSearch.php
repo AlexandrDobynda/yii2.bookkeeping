@@ -49,7 +49,9 @@ class TransactionsSearch extends Transactions
      */
     public function search($params)
     {
-        $query = Transactions::find();
+        $query = Transactions::find()
+            ->having(['family_id' => Yii::$app->user->identity->family_id]);
+
 
         // add conditions that should always apply here
 
@@ -87,6 +89,7 @@ class TransactionsSearch extends Transactions
 
         // grid filtering conditions
         $query->andFilterWhere([
+
 
             'amount' => $this->amount,
             'category.name' => $this->getAttribute('category.name'),
