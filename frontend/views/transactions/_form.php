@@ -13,9 +13,16 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'category_id')
+        ->dropDownList([
+            1 => 'First',
+            2 => 'Second',
+            6 => 'Third',
+        ]) ?>
+
     <?= $form->field($model, 'amount')->textInput() ?>
 
-    <?= $form->field($model, 'category_id')->textInput() ?>
+<!--    --><?//= $form->field($model, 'category_id')->textInput() ?>
 
     <?= $form->field($model, 'account_id')->textInput() ?>
 
