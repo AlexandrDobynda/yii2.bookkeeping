@@ -15,21 +15,13 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'user_id') ?>
-
-    <?= $form->field($model, 'amount') ?>
-
-    <?= $form->field($model, 'category_id') ?>
-
-    <?= $form->field($model, 'account_id') ?>
 
     <?php // echo $form->field($model, 'profile_id') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 
-    <?php // echo $form->field($model, 'date') ?>
+    <?php echo $form->field($model, 'date') ?>
 
     <?php // echo $form->field($model, 'family_id') ?>
 

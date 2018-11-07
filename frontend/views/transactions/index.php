@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TransactionsSearch */
@@ -13,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="transactions-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
 
     <p>
         <?= Html::a('Create Transactions', ['create'], ['class' => 'btn btn-success']) ?>
@@ -42,7 +43,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Author',
                 'attribute' => 'profile.first_name',
             ],
-            'date',
+            [
+                'attribute' => 'date',
+                'filter' => DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'date_from',
+                    'attribute2' => 'date_to',
+                    'type' => DatePicker::TYPE_RANGE,
+                    'separator' => '-',
+                    'pluginOptions' => [
+                            'todayHighlight' => true,
+                        'autoclose' => true,
+                        'format' => 'dd-M-yyyy'
+                    ]
+                ]),
+                'format' => 'date',
+            ],
             [
                 'attribute' => 'created_at',
                 'format' => ['date', 'dd.MM.YYYY'],
