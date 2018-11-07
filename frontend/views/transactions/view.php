@@ -43,7 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Author',
                 'attribute' => 'profile.first_name',
             ],
-            'date',
+            [
+                'attribute' => 'date',
+                'format' => ['date', 'dd.MM.YYYY'],
+            ],
             [
                 'attribute' => 'created_at',
                 'format' => ['date', 'dd.MM.YYYY'],

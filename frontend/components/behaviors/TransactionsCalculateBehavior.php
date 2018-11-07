@@ -10,35 +10,53 @@ use yii\db\ActiveRecord;
 
 class TransactionsCalculateBehavior extends Behavior
 {
+    public $amount;
+    public $account;
+    public $accountBalance;
+
+
     public function events()
     {
         return [
             ActiveRecord::EVENT_BEFORE_INSERT => 'calculate',
             ActiveRecord::EVENT_BEFORE_UPDATE => 'calcDiff',
+            ActiveRecord::EVENT_BEFORE_DELETE => 'return',
         ];
+    }
+
+    public function getValues($event)
+    {
+        $this->amount = $event->sender->amount;
+        $this->account = Accounts::findOne($event->sender->account_id);
+        $this->accountBalance = $this->account->amount;
     }
 
     public function calculate($event)
     {
-        $amount = $event->sender->amount;
-        $account = Accounts::findOne($event->sender->account_id);
-        $accountBalance = $account->amount;
+        $this->getValues($event);
 
-        $calculate = $accountBalance + $amount;
-        $account->amount = $calculate;
-        $account->save();
+        $calculate = $this->accountBalance + $this->amount;
+        $this->account->amount = $calculate;
+        $this->account->save();
     }
 
     public function calcDiff($event)
     {
-        $amount = $event->sender->amount;
-        $account = Accounts::findOne($event->sender->account_id);
-        $accountBalance = $account->amount;
+        $this->getValues($event);
         $prevAmount = Transactions::findOne($event->sender->id)->amount;
 
-        $calculate = $accountBalance + ($amount - $prevAmount);
-        $account->amount = $calculate;
-        $account->save();
+        $calculate = $this->accountBalance + ($this->amount - $prevAmount);
+        $this->account->amount = $calculate;
+        $this->account->save();
+    }
+
+    public function return($event)
+    {
+        $this->getValues($event);
+
+        $calculate = $this->accountBalance - $this->amount;
+        $this->account->amount = $calculate;
+        $this->account->save();
     }
 
 

@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use common\models\Category;
 use common\models\Accounts;
 use yii\helpers\ArrayHelper;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Transactions */
@@ -36,7 +37,15 @@ $accountItems = ArrayHelper::map($account, 'id', 'name');
         ->dropDownList($accountItems, ['prompt' => 'Chose account'])
         ->label('Account') ?>
 
-    <?= $form->field($model, 'date')->textInput() ?>
+    <?= $form->field($model, 'date')->widget(
+        DatePicker::className([
+            'pluginOptions' => [
+                'todayHighlight' => true,
+                'autoclose'=>true,
+                'format' => 'dd-M-yyyy'
+            ]
+        ])
+    ) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

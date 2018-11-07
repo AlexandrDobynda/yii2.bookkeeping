@@ -4,6 +4,7 @@ namespace common\models;
 
 use frontend\components\behaviors\TransactionsCalculateBehavior;
 use frontend\components\behaviors\TransactionsInfoBehavior;
+use frontend\components\behaviors\TransactionsTimeBehavior;
 use Yii;
 
 /**
@@ -41,6 +42,7 @@ class Transactions extends \yii\db\ActiveRecord
         return [
             TransactionsInfoBehavior::className(),
             TransactionsCalculateBehavior::className(),
+            TransactionsTimeBehavior::className(),
         ];
     }
 
@@ -50,6 +52,7 @@ class Transactions extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['account_id', 'category_id'], 'required'],
             [['user_id', 'category_id', 'account_id', 'profile_id', 'family_id'], 'integer'],
             [['amount'], 'number'],
             [['created_at', 'date'], 'safe'],

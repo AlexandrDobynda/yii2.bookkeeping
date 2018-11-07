@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use kartik\date\DatePicker;
+use kartik\widgets\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TransactionsSearch */
@@ -52,16 +52,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     'type' => DatePicker::TYPE_RANGE,
                     'separator' => '-',
                     'pluginOptions' => [
-                            'todayHighlight' => true,
+                        'todayHighlight' => true,
                         'autoclose' => true,
                         'format' => 'dd-M-yyyy'
                     ]
                 ]),
-                'format' => 'date',
+                'format' => ['date', 'php:d-F-Y'],
             ],
             [
                 'attribute' => 'created_at',
-                'format' => ['date', 'dd.MM.YYYY'],
+                'format' => 'date',
             ],
 
             ['class' => 'yii\grid\ActionColumn'],
