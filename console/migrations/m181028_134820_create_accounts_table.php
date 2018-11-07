@@ -25,7 +25,7 @@ class m181028_134820_create_accounts_table extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
             'name' => $this->text(),
-            'amount' => $this->integer(),
+            'amount' => $this->float(),
         ]);
 
         // creates index for column `user_id`

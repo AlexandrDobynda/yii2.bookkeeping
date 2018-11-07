@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Transactions', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
+    <br>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute' => 'amount',
-                'footer' => 'Count: ',
+//                'footer' => 'Count: ',
             ],
             [
                 'label' => 'Category',
@@ -54,10 +54,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions' => [
                         'todayHighlight' => true,
                         'autoclose' => true,
-                        'format' => 'dd-M-yyyy'
+                        'format' => 'dd M. yyyy'
                     ]
                 ]),
-                'format' => ['date', 'php:d-F-Y'],
+                'format' => ['date', 'php:d M. Y'],
             ],
             [
                 'attribute' => 'created_at',

@@ -28,7 +28,7 @@ class TransactionsSearch extends Transactions
             [['id', 'user_id', 'category_id', 'account_id', 'profile_id', 'family_id'], 'integer'],
             [['amount'], 'number'],
             [['created_at', 'date', 'category.name', 'account.name', 'profile.first_name'], 'safe'],
-            [['date_from', 'date_to'], 'date', 'format' => 'php:Y-m-d'],
+            [['date_from', 'date_to'], 'date', 'format' => 'php:d M. Y'],
         ];
     }
 
@@ -95,6 +95,7 @@ class TransactionsSearch extends Transactions
             'account.name' => $this->getAttribute('account.name'),
             'profile.first_name' => $this->getAttribute('profile.first_name'),
             'created_at' => $this->created_at,
+            'date' => $this->date,
         ]);
         $query
             ->andFilterWhere(['>=', 'date', $this->date_from ? strtotime($this->date_from . '00:00:00') : null])
