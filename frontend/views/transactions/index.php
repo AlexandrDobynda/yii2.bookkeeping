@@ -22,17 +22,30 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'showFooter' => true,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'category.name',
-            'amount',
-            'account.name',
-            'profile.first_name',
+            [
+                'attribute' => 'amount',
+                'footer' => 'Count: ',
+            ],
+            [
+                'label' => 'Category',
+                'attribute' => 'category.name',
+            ],
+            [
+                'label' => 'Account',
+                'attribute' => 'account.name',
+            ],
+            [
+                'label' => 'Author',
+                'attribute' => 'profile.first_name',
+            ],
             'date',
             [
-                    'attribute' => 'created_at',
-                    'format' => ['date', 'dd.MM.YYYY'],
+                'attribute' => 'created_at',
+                'format' => ['date', 'dd.MM.YYYY'],
             ],
 
             ['class' => 'yii\grid\ActionColumn'],
