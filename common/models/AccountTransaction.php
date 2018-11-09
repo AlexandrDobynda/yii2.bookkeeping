@@ -44,7 +44,7 @@ class AccountTransaction extends \yii\db\ActiveRecord
         return [
             [['from_id', 'to_id', 'user_id'], 'integer'],
             [['from_id', 'to_id'], 'required'],
-            ['from_id', 'compare', 'compareAttribute' => 'to_id', 'operator' => '!='],
+            ['from_id', 'compare', 'compareAttribute' => 'to_id', 'operator' => '!=', 'message' => 'You must chose different accounts'],
             [['amount'], 'safe'],
             [['from_id'], 'exist', 'skipOnError' => true, 'targetClass' => Accounts::className(), 'targetAttribute' => ['from_id' => 'id']],
             [['to_id'], 'exist', 'skipOnError' => true, 'targetClass' => Accounts::className(), 'targetAttribute' => ['to_id' => 'id']],
