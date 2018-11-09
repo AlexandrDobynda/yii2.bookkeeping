@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use frontend\components\behaviors\AccountTransferBehavior;
 use Yii;
 
 /**
@@ -27,6 +28,14 @@ class AccountTransaction extends \yii\db\ActiveRecord
         return 'account_transaction';
     }
 
+    public function behaviors()
+    {
+        return [
+
+            AccountTransferBehavior::className(),
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */
@@ -34,7 +43,7 @@ class AccountTransaction extends \yii\db\ActiveRecord
     {
         return [
             [['from_id', 'to_id', 'user_id'], 'integer'],
-            [['amount'], 'number'],
+            [['amount'], 'safe'],
             [['from_id'], 'exist', 'skipOnError' => true, 'targetClass' => Accounts::className(), 'targetAttribute' => ['from_id' => 'id']],
             [['to_id'], 'exist', 'skipOnError' => true, 'targetClass' => Accounts::className(), 'targetAttribute' => ['to_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],

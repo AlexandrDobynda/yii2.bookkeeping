@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\AccountTransaction */
 
-$this->title = 'Create Account Transaction';
-$this->params['breadcrumbs'][] = ['label' => 'Account Transactions', 'url' => ['index']];
+$this->title = 'Transfer between accounts';
+$this->params['breadcrumbs'][] = ['label' => 'Transfer between accounts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="account-transaction-create">

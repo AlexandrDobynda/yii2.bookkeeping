@@ -41,7 +41,7 @@ class AccountsSearch extends Accounts
      */
     public function search($params)
     {
-        $query = Accounts::find();
+        $query = Accounts::find()->where(['user_id' => Yii::$app->user->identity->id]);
 
         // add conditions that should always apply here
 

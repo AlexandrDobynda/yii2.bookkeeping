@@ -19,7 +19,7 @@ class AccountTransactionSearch extends AccountTransaction
     {
         return [
             [['id', 'from_id', 'to_id', 'user_id'], 'integer'],
-            [['amount'], 'number'],
+            [['amount'], 'safe'],
         ];
     }
 

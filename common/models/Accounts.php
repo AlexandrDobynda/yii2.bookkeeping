@@ -88,4 +88,10 @@ class Accounts extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Transactions::className(), ['account_id' => 'id']);
     }
+
+    public function getAccountTransaction()
+    {
+        return $this->hasMany(AccountTransaction::className(), ['from_id' => 'id', 'to_id' => 'id']);
+    }
+
 }
