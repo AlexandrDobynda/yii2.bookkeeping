@@ -34,4 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+
+    <p>
+        <a class="btn btn-md btn-success" href="http://bookkeeping/account-transaction/create">
+            Transfer between accounts
+        </a>
+    </p>
 </div>

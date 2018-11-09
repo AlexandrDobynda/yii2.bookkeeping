@@ -67,7 +67,7 @@ class AccountTransactionController extends Controller
         $model = new AccountTransaction();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('../accounts');
         }
 
         return $this->render('create', [
