@@ -43,7 +43,8 @@ class Accounts extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'amount', 'family_id'], 'integer'],
+            [['amount'], 'safe'],
+            [['user_id', 'family_id'], 'integer'],
             [['name'], 'string'],
             [['family_id'], 'exist', 'skipOnError' => true, 'targetClass' => Family::className(), 'targetAttribute' => ['family_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],

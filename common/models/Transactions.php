@@ -54,8 +54,7 @@ class Transactions extends \yii\db\ActiveRecord
         return [
             [['account_id', 'category_id'], 'required'],
             [['user_id', 'category_id', 'account_id', 'profile_id', 'family_id'], 'integer'],
-            [['amount'], 'number'],
-            [['created_at', 'date'], 'safe'],
+            [['created_at', 'date', 'amount'], 'safe'],
             [['account_id'], 'exist', 'skipOnError' => true, 'targetClass' => Accounts::className(), 'targetAttribute' => ['account_id' => 'id']],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['family_id'], 'exist', 'skipOnError' => true, 'targetClass' => Family::className(), 'targetAttribute' => ['family_id' => 'id']],
