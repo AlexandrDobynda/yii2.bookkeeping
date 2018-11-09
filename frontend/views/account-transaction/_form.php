@@ -38,6 +38,10 @@ $toItems = ArrayHelper::map($to, 'id', 'name');
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+
+        <a class="btn btn-md btn-danger" href="http://bookkeeping/accounts">
+            Back
+        </a>
     </div>
 
     <?php ActiveForm::end(); ?>
