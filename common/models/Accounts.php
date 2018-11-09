@@ -43,6 +43,7 @@ class Accounts extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['amount', 'name'], 'required' ],
             [['amount'], 'safe'],
             [['user_id', 'family_id'], 'integer'],
             [['name'], 'string'],
