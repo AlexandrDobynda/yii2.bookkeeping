@@ -18,7 +18,7 @@ $category = Category::find()
 $categoryItems = ArrayHelper::map($category, 'id', 'name');
 
 $account = Accounts::find()
-    ->having(['family_id' => Yii::$app->user->identity->family_id])
+    ->having(['user_id' => Yii::$app->user->identity->id])
     ->all();
 $accountItems = ArrayHelper::map($account, 'id', 'name');
 ?>

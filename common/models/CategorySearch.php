@@ -13,6 +13,10 @@ use common\models\Category;
 class CategorySearch extends Category
 {
 
+    public function attributes()
+    {
+        return array_merge(parent::attributes(), ['profile.first_name']);
+    }
     /**
      * {@inheritdoc}
      */
@@ -20,7 +24,7 @@ class CategorySearch extends Category
     {
         return [
             [['id', 'created_by', 'parent_id', 'family_id'], 'integer'],
-            [['name'], 'safe'],
+            [['name', 'profile.first_name'], 'safe'],
         ];
     }
 
@@ -42,13 +46,19 @@ class CategorySearch extends Category
      */
     public function search($params)
     {
-        $query = Category::find();
+        $query = Category::find()->where(['family_id' => Yii::$app->user->identity->family_id]);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $query->joinWith(['profile' => function($query) { $query->from(['profile' => 'profile']); }]);
+        $dataProvider->sort->attributes['profile.first_name'] = [
+            'asc' => ['profile.first_name' => SORT_ASC],
+            'desc' => ['profile.first_name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -64,6 +74,7 @@ class CategorySearch extends Category
             'created_by' => $this->created_by,
             'parent_id' => $this->parent_id,
             'family_id' => $this->family_id,
+            'profile.first_name' => $this->getAttribute('profile.first_name'),
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);

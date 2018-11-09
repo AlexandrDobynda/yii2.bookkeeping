@@ -53,6 +53,10 @@ class Profile extends \yii\db\ActiveRecord
 
     public static function getId()
     {
+        if (!static::findOne(['user_id' => Yii::$app->user->getId()])) {
+            return null;
+        }
+
         $profile = static::findOne(['user_id' => Yii::$app->user->getId()]);
         return $profile->id;
     }
