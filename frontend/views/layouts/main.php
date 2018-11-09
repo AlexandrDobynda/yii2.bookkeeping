@@ -9,6 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use common\models\Profile;
 
 AppAsset::register($this);
 ?>
@@ -43,7 +44,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
         $menuItems[] = ['label' => 'Transactions', 'url' => ['/transactions']];
-        $menuItems[] = ['label' => 'Profile', 'url' => ['/profile']];
+        $menuItems[] = ['label' => 'Profile', 'url' => ['/profile/' . Profile::getId()]];
         $menuItems[] = ['label' => 'Account', 'url' => ['/accounts']];
         $menuItems[] = ['label' => 'Categories', 'url' => ['/category']];
         $menuItems[] = '<li>'
