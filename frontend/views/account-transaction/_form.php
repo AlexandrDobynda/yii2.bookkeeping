@@ -39,9 +39,7 @@ $toItems = ArrayHelper::map($to, 'id', 'name');
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
 
-        <a class="btn btn-md btn-danger" href="http://bookkeeping/accounts">
-            Back
-        </a>
+        <?= Html::a('Back', ['../accounts'], ['class' => 'btn btn-danger']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

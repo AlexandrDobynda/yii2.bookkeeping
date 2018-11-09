@@ -15,9 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
+    <div>
         <?= Html::a('Create Accounts', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+
+        <?= Html::a('Transfer between accounts', ['/account-transaction/create'], ['class' => 'btn btn-success']) ?>
+    </div>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -35,9 +37,4 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-    <p>
-        <a class="btn btn-md btn-success" href="http://bookkeeping/account-transaction/create">
-            Transfer between accounts
-        </a>
-    </p>
 </div>
