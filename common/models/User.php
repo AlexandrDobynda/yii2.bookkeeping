@@ -51,6 +51,16 @@ class User extends ActiveRecord implements IdentityInterface
         $user->setPassword($password);
         $user->generateAuthKey();
 
+        if (isset($_GET['string'])) {
+            $secretString = substr($_GET['string'], 2);
+            if (Invites::findOne(['secret_string' => $secretString ])) {
+
+                $invite = Invites::findOne(['secret_string' => $secretString]);
+                $user->family_id = $invite->family_id;
+            }
+        }
+
+
         return $user;
     }
 

@@ -17,8 +17,8 @@ class InviteSentBehavior extends Behavior
 
     public function inviteSent($event)
     {
-        $secretStringGet = '?string=' . $event->sender->secret_string;
-        $link = 'http://bookkeeping/'. $secretStringGet;
+        $link = 'http://bookkeeping/signup?string='. $event->sender->secret_string;
+
 
         Yii::$app->mailer->compose()
             ->setFrom('from@domain.com')

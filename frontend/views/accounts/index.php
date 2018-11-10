@@ -14,11 +14,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <div>
+    <p>
         <?= Html::a('Create Accounts', ['create'], ['class' => 'btn btn-success']) ?>
 
-        <?= Html::a('Transfer between accounts', ['/account-transaction/create'], ['class' => 'btn btn-success']) ?>
-    </div>
+        <?= Html::a('Transfer between accounts', ['/account-transaction/create'], ['class' => 'btn btn-primary']) ?>
+    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

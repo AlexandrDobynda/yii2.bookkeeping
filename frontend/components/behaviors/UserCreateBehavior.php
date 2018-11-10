@@ -20,6 +20,11 @@ class UserCreateBehavior extends Behavior
 
     public function addFamily($event)
     {
+        $profile = new Profile();
+        $profile->user_id = $event->sender->id;
+        $profile->first_name = $event->sender->username;
+        $profile->save();
+
         if (!$event->sender->family_id){
 
             $family = new Family();
@@ -30,11 +35,5 @@ class UserCreateBehavior extends Behavior
             $user->family_id = $family->id;
             $user->save();
         }
-
-        $profile = new Profile();
-        $profile->user_id = $event->sender->id;
-        $profile->first_name = $event->sender->username;
-
-
     }
 }
