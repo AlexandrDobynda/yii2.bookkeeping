@@ -6,9 +6,21 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use common\models\User;
+use common\models\Invites;
 
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
+
+if (User::isGet()) {
+    $secretString = substr($_GET['string'], 2);
+    $invite = Invites::findOne(['secret_string' => $secretString]);
+    $email = $invite->email;
+} else {
+    $email = null;
+}
+
+
 ?>
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -21,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
-                <?= $form->field($model, 'email') ?>
+                <?= $form->field($model, 'email')->input('email', ['value' => $email]) ?>
 
                 <?= $form->field($model, 'password')->passwordInput() ?>
 
