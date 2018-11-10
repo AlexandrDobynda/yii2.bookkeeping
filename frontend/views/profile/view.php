@@ -14,6 +14,11 @@ $this->title = 'Your profile';
 
     <br>
 
+    <p>
+        <?= Html::a('Change', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Invite new user', ['/invites/create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -21,10 +26,5 @@ $this->title = 'Your profile';
             'last_name:ntext',
         ],
     ]) ?>
-
-    <p>
-        <?= Html::a('Change', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-
-    </p>
 
 </div>

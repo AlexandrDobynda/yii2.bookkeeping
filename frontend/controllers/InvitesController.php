@@ -8,6 +8,7 @@ use common\models\InvitesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\Profile;
 
 /**
  * InvitesController implements the CRUD actions for Invites model.
@@ -67,8 +68,12 @@ class InvitesController extends Controller
         $model = new Invites();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            Yii::$app->session->setFlash('success', 'Invite sent.');
+
+            return $this->redirect(['/profile/' . Profile::getId()]);
         }
+
 
         return $this->render('create', [
             'model' => $model,

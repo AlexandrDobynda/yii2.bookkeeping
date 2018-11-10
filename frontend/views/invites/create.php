@@ -6,9 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Invites */
 
-$this->title = 'Create Invites';
-$this->params['breadcrumbs'][] = ['label' => 'Invites', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Invite new user';
 ?>
 <div class="invites-create">
 
