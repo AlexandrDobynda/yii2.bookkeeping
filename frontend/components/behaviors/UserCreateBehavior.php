@@ -20,16 +20,21 @@ class UserCreateBehavior extends Behavior
 
     public function addFamily($event)
     {
-        $family = new Family();
-        $family->owner_id = $event->sender->id;
-        $family->save();
+        if (!$event->sender->family_id){
+
+            $family = new Family();
+            $family->owner_id = $event->sender->id;
+            $family->save();
+
+            $user = User::findOne($event->sender->id);
+            $user->family_id = $family->id;
+            $user->save();
+        }
 
         $profile = new Profile();
         $profile->user_id = $event->sender->id;
         $profile->first_name = $event->sender->username;
 
-        $user = User::findOne($event->sender->id);
-        $user->family_id = $family->id;
-        $user->save();
+
     }
 }

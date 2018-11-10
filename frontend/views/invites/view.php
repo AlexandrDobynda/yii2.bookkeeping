@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'family_id',
             'secret_string:ntext',
             'created_at:ntext',
+            'email:email',
         ],
     ]) ?>
 

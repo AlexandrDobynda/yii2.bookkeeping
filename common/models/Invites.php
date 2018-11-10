@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use frontend\components\behaviors\InviteBehavior;
+use frontend\components\behaviors\InviteSentBehavior;
 use Yii;
 
 /**
@@ -11,6 +13,7 @@ use Yii;
  * @property int $family_id
  * @property string $secret_string
  * @property string $created_at
+ * @property string $email
  *
  * @property Family $family
  */
@@ -24,6 +27,14 @@ class Invites extends \yii\db\ActiveRecord
         return 'invites';
     }
 
+    public function behaviors()
+    {
+        return [
+            InviteBehavior::className(),
+            InviteSentBehavior::className(),
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -32,6 +43,7 @@ class Invites extends \yii\db\ActiveRecord
         return [
             [['family_id'], 'integer'],
             [['secret_string', 'created_at'], 'string'],
+            [['email'], 'email'],
             [['family_id'], 'exist', 'skipOnError' => true, 'targetClass' => Family::className(), 'targetAttribute' => ['family_id' => 'id']],
         ];
     }
@@ -46,6 +58,7 @@ class Invites extends \yii\db\ActiveRecord
             'family_id' => 'Family ID',
             'secret_string' => 'Secret String',
             'created_at' => 'Created At',
+            'email' => 'Email',
         ];
     }
 

@@ -19,7 +19,7 @@ class InvitesSearch extends Invites
     {
         return [
             [['id', 'family_id'], 'integer'],
-            [['secret_string', 'created_at'], 'safe'],
+            [['secret_string', 'created_at', 'email'], 'safe'],
         ];
     }
 
@@ -64,7 +64,8 @@ class InvitesSearch extends Invites
         ]);
 
         $query->andFilterWhere(['like', 'secret_string', $this->secret_string])
-            ->andFilterWhere(['like', 'created_at', $this->created_at]);
+            ->andFilterWhere(['like', 'created_at', $this->created_at])
+            ->andFilterWhere(['like', 'email', $this->email]);
 
         return $dataProvider;
     }
