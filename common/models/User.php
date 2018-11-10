@@ -46,20 +46,25 @@ class User extends ActiveRecord implements IdentityInterface
     public static function create(string $username, string $email, string $password) :self
     {
         $user = new static();
-        $user->username = $username;
-        $user->email = $email;
-        $user->setPassword($password);
-        $user->generateAuthKey();
 
         if (isset($_GET['string'])) {
             $secretString = substr($_GET['string'], 2);
             if (Invites::findOne(['secret_string' => $secretString ])) {
 
-                $invite = Invites::findOne(['secret_string' => $secretString]);
-                $user->family_id = $invite->family_id;
+                $invite = Invites::findOne(['secret_string' => $secretString ]);
+
+                if ((time() - $invite->created_at) > 604800) {
+                    throw new \RuntimeException('You have been invited more then week ago, you need new invite.');
+                } else {
+                    $user->family_id = $invite->family_id;
+                }
             }
         }
 
+        $user->username = $username;
+        $user->email = $email;
+        $user->setPassword($password);
+        $user->generateAuthKey();
 
         return $user;
     }
