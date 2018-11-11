@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use kartik\widgets\DatePicker;
+use frontend\components\FuterGridViewSum;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TransactionsSearch */
@@ -27,9 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+//            [
+//                'attribute' => 'amount',
+////                'footer' => 'Sum: ',
+//            ],
             [
+                'class' => FuterGridViewSum::className(),
                 'attribute' => 'amount',
-//                'footer' => 'Count: ',
             ],
             [
                 'label' => 'Category',
