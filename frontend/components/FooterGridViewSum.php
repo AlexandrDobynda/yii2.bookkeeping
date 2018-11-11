@@ -4,7 +4,7 @@ namespace frontend\components;
 
 use yii\grid\DataColumn;
 
-class FuterGridViewSum extends DataColumn
+class FooterGridViewSum extends DataColumn
 {
     private $_total = 0;
 
@@ -17,6 +17,6 @@ class FuterGridViewSum extends DataColumn
 
     protected function renderFooterCellContent()
     {
-        return $this->grid->formatter->format($this->_total, $this->format);;
+        return $this->grid->formatter->format($this->_total, $this->format);
     }
 }
