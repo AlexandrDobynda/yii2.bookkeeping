@@ -4,6 +4,10 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use kartik\widgets\DatePicker;
 use frontend\components\FooterGridViewSum;
+use yii\helpers\ArrayHelper;
+use common\models\Category;
+use common\models\Accounts;
+use common\models\Profile;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TransactionsSearch */
@@ -25,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'showFooter' => true,
-        'showOnEmpty' => false,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn',
                 'footer' => 'Sum:',
@@ -38,14 +41,28 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Category',
                 'attribute' => 'category.name',
+                'filter' =>
+                    ArrayHelper::map(Category::find()
+                        ->having(['family_id' => Yii::$app->user->identity->family_id])
+                        ->all(), 'name', 'name'),
             ],
             [
                 'label' => 'Account',
                 'attribute' => 'account.name',
+                'filter' =>
+                    ArrayHelper::map(
+                        Accounts::find()
+                            ->having(['family_id' => Yii::$app->user->identity->family_id])
+                            ->all(), 'name', 'name'),
             ],
             [
                 'label' => 'Author',
                 'attribute' => 'profile.first_name',
+//                'filter' =>
+//                    ArrayHelper::map(
+//                        Profile::find()
+//                            ->having(['family_id' => Yii::$app->user->identity->family_id])
+//                            ->all(), 'name', 'name'),
             ],
             [
                 'attribute' => 'date',

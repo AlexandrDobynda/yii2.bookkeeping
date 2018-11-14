@@ -2,6 +2,7 @@
 namespace common\models;
 
 use frontend\components\behaviors\UserCreateBehavior;
+use phpDocumentor\Reflection\Types\Boolean;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -66,10 +67,13 @@ class User extends ActiveRecord implements IdentityInterface
         return $user;
     }
 
-    public static function isGet()
+    /**
+     * @return bool
+     */
+    public static function isGet() :Boolean
     {
         if (isset($_GET['string'])) {
-            $secretString = substr($_GET['string'], 2);
+            $secretString = $_GET['string'];
             if (Invites::findOne(['secret_string' => $secretString ])) {
 
                 return true;

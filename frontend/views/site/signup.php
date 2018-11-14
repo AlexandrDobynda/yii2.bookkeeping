@@ -13,7 +13,7 @@ $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
 
 if (User::isGet()) {
-    $secretString = substr($_GET['string'], 2);
+    $secretString = $_GET['string'];
     $invite = Invites::findOne(['secret_string' => $secretString]);
     $email = $invite->email;
 } else {
