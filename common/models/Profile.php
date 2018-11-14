@@ -35,6 +35,7 @@ class Profile extends \yii\db\ActiveRecord
             [['user_id', 'family_id'], 'integer'],
             [['first_name', 'last_name'], 'string'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['family_id'], 'exist', 'skipOnError' => true, 'targetClass' => Family::className(), 'targetAttribute' => ['family_id' => 'id']],
         ];
     }
 

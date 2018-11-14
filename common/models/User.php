@@ -70,7 +70,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return bool
      */
-    public static function isGet() :Boolean
+    public static function isGet() :Bool
     {
         if (isset($_GET['string'])) {
             $secretString = $_GET['string'];
@@ -78,6 +78,8 @@ class User extends ActiveRecord implements IdentityInterface
 
                 return true;
             }
+        } else {
+            return false;
         }
     }
 

@@ -21,9 +21,6 @@ class UserCreateBehavior extends Behavior
     public function addFamily($event)
     {
         $profile = new Profile();
-        $profile->user_id = $event->sender->id;
-        $profile->first_name = $event->sender->username;
-        $profile->save();
 
         if (!$event->sender->family_id){
 
@@ -34,6 +31,18 @@ class UserCreateBehavior extends Behavior
             $user = User::findOne($event->sender->id);
             $user->family_id = $family->id;
             $user->save();
+
+            $profile-> family_id = $family->id;
+            $profile->save();
+
+        } else {
+
+            $profile->family_id = $event->sender->family_id;
+            $profile->save();
         }
+
+        $profile->user_id = $event->sender->id;
+        $profile->first_name = $event->sender->username;
+        $profile->save();
     }
 }
