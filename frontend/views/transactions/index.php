@@ -58,11 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Author',
                 'attribute' => 'profile.first_name',
-//                'filter' =>
-//                    ArrayHelper::map(
-//                        Profile::find()
-//                            ->having(['family_id' => Yii::$app->user->identity->family_id])
-//                            ->all(), 'name', 'name'),
+                'filter' =>
+                    ArrayHelper::map(
+                        Profile::find()
+                            ->having(['family_id' => Yii::$app->user->identity->family_id])
+                            ->all(), 'first_name', 'first_name'),
             ],
             [
                 'attribute' => 'date',
