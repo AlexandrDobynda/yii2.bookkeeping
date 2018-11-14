@@ -32,7 +32,7 @@ class Profile extends \yii\db\ActiveRecord
     {
         return [
             [['user_id'], 'required'],
-            [['user_id'], 'integer'],
+            [['user_id', 'family_id'], 'integer'],
             [['first_name', 'last_name'], 'string'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -46,6 +46,7 @@ class Profile extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
+            'family_id' => 'Family ID',
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
         ];
@@ -74,5 +75,10 @@ class Profile extends \yii\db\ActiveRecord
     public function getTransactions()
     {
         return $this->hasMany(Transactions::className(), ['profile_id' => 'id']);
+    }
+
+    public function getFamily()
+    {
+        return $this->hasOne(Family::className(), ['id' => 'family_id']);
     }
 }

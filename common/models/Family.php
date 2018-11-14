@@ -96,4 +96,9 @@ class Family extends \yii\db\ActiveRecord
     {
         return $this->hasMany(User::className(), ['family_id' => 'id']);
     }
+
+    public function getProfile()
+    {
+        return $this->hasMany(Profile::className(), ['family_id' => 'id']);
+    }
 }
