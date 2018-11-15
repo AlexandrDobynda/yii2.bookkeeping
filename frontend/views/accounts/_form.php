@@ -13,7 +13,7 @@ $currency = Yii::$app
     ->filter(['currency' => 'usd, eur'])
     ->all();
 
-$accountItems = ArrayHelper::map($currency, 'char_code', 'name');
+$currencyItems = ArrayHelper::map($currency, 'char_code', 'name');
 ?>
 
 <div class="accounts-form">
