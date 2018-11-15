@@ -46,7 +46,7 @@ class CategorySearch extends Category
      */
     public function search($params)
     {
-        $query = Category::find()->where(['family_id' => Yii::$app->user->identity->family_id]);
+        $query = Category::find()->having(['family_id' => Yii::$app->user->identity->family_id]);
 
         // add conditions that should always apply here
 

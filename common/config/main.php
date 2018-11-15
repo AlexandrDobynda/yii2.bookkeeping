@@ -6,6 +6,10 @@ return [
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
+        'CbRF' => [
+            'class' => 'microinginer\CbRFRates\CBRF',
+            'defaultCurrency' => "EUR"
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

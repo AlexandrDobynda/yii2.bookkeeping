@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9442138c0e21a538baab7c48b16622ed",
+    "content-hash": "42e1f2bd6ff683485ae3a16c9c44a3c5",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -55,7 +55,7 @@
             "version": "3.2.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jquery/jquery-dist.git",
+                "url": "git@github.com:jquery/jquery-dist.git",
                 "reference": "77d2a51d0520d2ee44173afdf4e40a9201f5964e"
             },
             "dist": {
@@ -1645,6 +1645,49 @@
                 "yii2"
             ],
             "time": "2018-10-09T17:40:19+00:00"
+        },
+        {
+            "name": "microinginer/yii2-cbrf-rates",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/microinginer/yii2-cbrf-rates.git",
+                "reference": "5b505eefd72cab816fe48c314cd10f93aa312671"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/microinginer/yii2-cbrf-rates/zipball/5b505eefd72cab816fe48c314cd10f93aa312671",
+                "reference": "5b505eefd72cab816fe48c314cd10f93aa312671",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "2.*"
+            },
+            "type": "yii2-extensions",
+            "autoload": {
+                "psr-4": {
+                    "microinginer\\CbRFRates\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "inginer",
+                    "email": "ruslanmadatov@yandex.ru"
+                }
+            ],
+            "homepage": "https://github.com/microinginer/yii2-cbrf-rates",
+            "keywords": [
+                "cbrf",
+                "rates",
+                "yii2",
+                "валюты",
+                "курсы"
+            ],
+            "time": "2017-01-23T10:06:05+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4533,7 +4576,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "kartik-v/yii2-widget-datepicker": 20
+        "kartik-v/yii2-widget-datepicker": 20,
+        "microinginer/yii2-cbrf-rates": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
