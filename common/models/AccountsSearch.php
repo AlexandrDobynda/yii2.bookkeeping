@@ -19,7 +19,7 @@ class AccountsSearch extends Accounts
     {
         return [
             [['id', 'user_id', 'amount', 'family_id'], 'integer'],
-            [['name'], 'safe'],
+            [['name', 'currency'], 'safe'],
         ];
     }
 
@@ -61,6 +61,7 @@ class AccountsSearch extends Accounts
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
+            'currency' => $this->currency,
             'amount' => $this->amount,
             'family_id' => $this->family_id,
         ]);

@@ -11,6 +11,7 @@ use Yii;
  * @property int $id
  * @property int $user_id
  * @property string $name
+ * @property string $currency
  * @property int $amount
  * @property int $family_id
  *
@@ -46,7 +47,7 @@ class Accounts extends \yii\db\ActiveRecord
             [['amount', 'name'], 'required' ],
             [['amount'], 'safe'],
             [['user_id', 'family_id'], 'integer'],
-            [['name'], 'string'],
+            [['name', 'currency'], 'string'],
             [['family_id'], 'exist', 'skipOnError' => true, 'targetClass' => Family::className(), 'targetAttribute' => ['family_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -61,6 +62,7 @@ class Accounts extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'User ID',
             'name' => 'Name',
+            'currency' => 'Currency',
             'amount' => 'Amount',
             'family_id' => 'Family ID',
         ];
