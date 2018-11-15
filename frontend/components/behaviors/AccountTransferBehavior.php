@@ -27,8 +27,8 @@ class AccountTransferBehavior extends Behavior
         $from = Accounts::findOne($event->sender->from_id);
         $to = Accounts::findOne($event->sender->to_id);
 
-        $fromExchangeRates = isset($currency[$from->currency]) ? $currencyList[$from->currency] : 1;
-        $toExchangeRates = isset($currency[$to->currency]) ? $currencyList[$to->currency] : 1;
+        $fromExchangeRates = isset($currencyList[$from->currency]) ? $currencyList[$from->currency] : 1;
+        $toExchangeRates = isset($currencyList[$to->currency]) ? $currencyList[$to->currency] : 1;
 
         $from->amount = $from->amount - $operationAmount;
         $from->save();
