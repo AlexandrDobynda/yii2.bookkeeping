@@ -48,9 +48,13 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $user = new static();
 
-        if (static::isGet()) {
-            $secretString = substr($_GET['string'], 2);
-            $invite = Invites::findOne(['secret_string' => $secretString ]);
+        if (static::getInviteString()) {
+
+            if (!static::findInvite()) {
+                throw new \RuntimeException('Something wrong with invite link, you need new invite');
+            }
+
+            $invite = static::findInvite();
 
             if ((time() - $invite->created_at) > 604800) {
                 throw new \RuntimeException('You have been invited more then week ago, you need new invite.');
@@ -68,19 +72,19 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return bool
+     * @return array|mixed
      */
-    public static function isGet() :Bool
+    public static function getInviteString()
     {
-        if (isset($_GET['string'])) {
-            $secretString = $_GET['string'];
-            if (Invites::findOne(['secret_string' => $secretString ])) {
+        return Yii::$app->request->get('string');
+    }
 
-                return true;
-            }
-        } else {
-            return false;
-        }
+    /**
+     * @return Invites|null
+     */
+    public static function findInvite()
+    {
+       return Invites::findOne(['secret_string' => Yii::$app->request->get('string')]);
     }
 
     /**

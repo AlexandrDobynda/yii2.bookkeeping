@@ -11,8 +11,10 @@ use Yii;
  * @property int $user_id
  * @property string $first_name
  * @property string $last_name
+ * @property int $family_id
  *
  * @property User $user
+ * @property Family $family
  * @property Transactions[] $transactions
  */
 class Profile extends \yii\db\ActiveRecord

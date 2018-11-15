@@ -7,17 +7,23 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use common\models\User;
-use common\models\Invites;
 
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
 
-if (User::isGet()) {
-    $secretString = $_GET['string'];
-    $invite = Invites::findOne(['secret_string' => $secretString]);
-    $email = $invite->email;
-} else {
-    $email = null;
+$email = null;
+
+if (User::getInviteString()) {
+
+    if (User::findInvite()) {
+
+        $invite = User::findInvite();
+        $email = $invite->email;
+
+    } else {
+
+        Yii::$app->session->setFlash('error', 'Wrong invite link.');
+    }
 }
 
 
