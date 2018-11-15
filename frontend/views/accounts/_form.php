@@ -10,7 +10,6 @@ use yii\helpers\ArrayHelper;
 
 $currency = Yii::$app
     ->CbRF
-    ->filter(['currency' => 'usd, eur'])
     ->all();
 
 $currencyItems = ArrayHelper::map($currency, 'char_code', 'name');
@@ -23,7 +22,7 @@ $currencyItems = ArrayHelper::map($currency, 'char_code', 'name');
     <?= $form->field($model, 'name')->textInput() ?>
 
     <?= $form->field($model, 'currency')
-        ->dropDownList($accountItems, ['prompt' => 'RUR'])
+        ->dropDownList($currencyItems, ['prompt' => 'Российский рубль'])
         ->label('Currency') ?>
 
     <?= $form->field($model, 'amount')->textInput() ?>

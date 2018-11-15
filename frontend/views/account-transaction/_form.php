@@ -12,12 +12,12 @@ use yii\helpers\ArrayHelper;
 $from = Accounts::find()
     ->having(['user_id' => Yii::$app->user->identity->id])
     ->all();
-$fromItems = ArrayHelper::map($from, 'id', 'name');
+$fromItems = ArrayHelper::map($from, 'id', 'name', 'currency');
 
 $to = Accounts::find()
     ->having(['user_id' => Yii::$app->user->identity->id])
     ->all();
-$toItems = ArrayHelper::map($to, 'id', 'name');
+$toItems = ArrayHelper::map($to, 'id', 'name', 'currency');
 
 
 ?>
