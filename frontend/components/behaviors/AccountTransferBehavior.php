@@ -23,12 +23,13 @@ class AccountTransferBehavior extends Behavior
         $this->owner->user_id = $userId;
 
         $currencyList = Yii::$app->CbRF->short()->all();
+        $currencyList['RUB'] = 1;
         $operationAmount = $event->sender->amount;
         $from = Accounts::findOne($event->sender->from_id);
         $to = Accounts::findOne($event->sender->to_id);
 
-        $fromExchangeRates = isset($currencyList[$from->currency]) ? $currencyList[$from->currency] : 1;
-        $toExchangeRates = isset($currencyList[$to->currency]) ? $currencyList[$to->currency] : 1;
+        $fromExchangeRates = $currencyList[$from->currency];
+        $toExchangeRates = $currencyList[$to->currency];
 
         $from->amount = $from->amount - $operationAmount;
         $from->save();
