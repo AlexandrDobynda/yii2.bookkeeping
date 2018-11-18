@@ -12,7 +12,6 @@ $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
 
 $email = null;
-
 if (User::getInviteString()) {
 
     if ($invite = User::findInvite()) {

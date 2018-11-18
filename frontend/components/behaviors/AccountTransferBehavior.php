@@ -7,6 +7,7 @@ use Yii;
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
 use common\models\Accounts;
+use common\models\CurrencyRate;
 
 class AccountTransferBehavior extends Behavior
 {
@@ -22,8 +23,8 @@ class AccountTransferBehavior extends Behavior
         $userId = Yii::$app->user->identity->id;
         $this->owner->user_id = $userId;
 
-        $currencyList = Yii::$app->CbRF->short()->all();
-        $currencyList['RUB'] = 1;
+        $currencyList = CurrencyRate::getSavedShort();
+//        $currencyList['RUB'] = 1;
         $operationAmount = $event->sender->amount;
         $from = Accounts::findOne($event->sender->from_id);
         $to = Accounts::findOne($event->sender->to_id);

@@ -3,16 +3,14 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
+use common\models\CurrencyRate;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Accounts */
 /* @var $form yii\widgets\ActiveForm */
 
-$currency = Yii::$app
-    ->CbRF
-    ->all();
 
-$currencyItems = ArrayHelper::map($currency, 'char_code', 'name');
+$currencyItems = ArrayHelper::map(CurrencyRate::getSavedRates(), 'char_code', 'name');
 ?>
 
 <div class="accounts-form">
