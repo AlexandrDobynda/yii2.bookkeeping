@@ -15,9 +15,8 @@ $email = null;
 
 if (User::getInviteString()) {
 
-    if (User::findInvite()) {
+    if ($invite = User::findInvite()) {
 
-        $invite = User::findInvite();
         $email = $invite->email;
 
     } else {
