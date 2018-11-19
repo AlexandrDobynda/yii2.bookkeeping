@@ -22,11 +22,6 @@ class AccountBehavior extends Behavior
 
         $this->owner->user_id = $userId;
         $this->owner->family_id = $userFamilyId;
-
-        if (!$event->sender->currency) {
-            $this->owner->currency = 'RUB';
-        }
-
     }
 }
 

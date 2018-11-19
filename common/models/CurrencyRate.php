@@ -54,7 +54,8 @@ class CurrencyRate extends \yii\db\ActiveRecord
     {
         if ($savedRub = self::findOne(['char_code' => 'RUB'])) {
 
-            return (time() - $savedRub->updated_at) > 1;
+            return isset($savedRub->updated_at) ? (time() - $savedRub->updated_at) > 3600 : true;
+
         } else {
 
             return true;
@@ -75,7 +76,7 @@ class CurrencyRate extends \yii\db\ActiveRecord
             if (!$db = self::findOne(['char_code' => $currency['char_code']])) {
 
                 $db = new self;
-//                $db->name = $currency['name'];
+                $db->name = $currency['name'];
                 $db->char_code = $currency['char_code'];
                 $db->value = $currency['value'];
                 $db->updated_at = time();

@@ -24,7 +24,6 @@ class AccountTransferBehavior extends Behavior
         $this->owner->user_id = $userId;
 
         $currencyList = CurrencyRate::getSavedShort();
-//        $currencyList['RUB'] = 1;
         $operationAmount = $event->sender->amount;
         $from = Accounts::findOne($event->sender->from_id);
         $to = Accounts::findOne($event->sender->to_id);
