@@ -50,11 +50,11 @@ class CurrencyRate extends \yii\db\ActiveRecord
         ];
     }
 
-    public function isNeedUpdate()
+    public static function isNeedUpdate()
     {
         if ($savedRub = self::findOne(['char_code' => 'RUB'])) {
 
-            return isset($savedRub->updated_at) ? (time() - $savedRub->updated_at) > 3600 : true;
+            return isset($savedRub->updated_at) ? (time() - $savedRub->updated_at) > 1 : true;
 
         } else {
 
@@ -62,7 +62,7 @@ class CurrencyRate extends \yii\db\ActiveRecord
         }
     }
 
-    public function updateDb()
+    public static function updateDb()
     {
         $newRates = Yii::$app->CbRF->all();
         $newRates[] = [
@@ -91,7 +91,7 @@ class CurrencyRate extends \yii\db\ActiveRecord
         }
     }
 
-    public function getSavedRates()
+    public static function getSavedRates()
     {
         if (self::isNeedUpdate()) {
             self::updateDb();
@@ -103,7 +103,7 @@ class CurrencyRate extends \yii\db\ActiveRecord
     /**
      * @return array
      */
-    public function getSavedShort()
+    public static function getSavedShort()
     {
         return ArrayHelper::map(self::getSavedRates(), 'char_code', 'value');
     }
