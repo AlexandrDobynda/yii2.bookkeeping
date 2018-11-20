@@ -38,13 +38,13 @@ $accountItems = ArrayHelper::map($account, 'id', 'name');
         ->label('Account') ?>
 
     <?= $form->field($model, 'date')->widget(
-        DatePicker::className([
+        DatePicker::className(),[
             'pluginOptions' => [
                 'todayHighlight' => true,
                 'autoclose'=>true,
-                'format' => 'dd-M-yyyy'
+                'format' => 'dd-M-yyyy',
             ]
-        ])
+        ]
     ) ?>
 
     <div class="form-group">
