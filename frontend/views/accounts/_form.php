@@ -20,7 +20,7 @@ $currencyItems = ArrayHelper::map(CurrencyRate::getSavedRates(), 'char_code', 'n
     <?= $form->field($model, 'name')->textInput() ?>
 
     <?= $form->field($model, 'currency')
-        ->dropDownList($currencyItems, ['prompt' => 'Российский рубль'])
+        ->dropDownList($currencyItems)
         ->label('Currency') ?>
 
     <?= $form->field($model, 'amount')->textInput() ?>

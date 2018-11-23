@@ -92,8 +92,6 @@ class TransactionsSearch extends Transactions
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'amount' => $this->amount,
-
             'category.name' => $this->getAttribute('category.name'),
             'account.name' => $this->getAttribute('account.name'),
             'profile.first_name' => $this->getAttribute('profile.first_name'),
@@ -101,11 +99,13 @@ class TransactionsSearch extends Transactions
             'date' => $this->date,
         ]);
 
-        $query->andFilterHaving(['>', 'amount', $this->amount]);
-
         $query
             ->andFilterWhere(['>=', 'date', $this->date_from ? strtotime($this->date_from . '00:00:00') : null])
             ->andFilterWhere(['<=', 'date', $this->date_to ? strtotime($this->date_to . '23:59:59') : null]);
+
+        if (!$this->amount == '') {
+            $query->andFilterHaving([$this->amount, 'amount', 0]);
+        }
 
         return $dataProvider;
     }

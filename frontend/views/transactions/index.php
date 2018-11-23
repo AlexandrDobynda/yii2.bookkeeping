@@ -39,16 +39,17 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => FooterGridViewSum::className(),
                 'attribute' => 'amount',
-//                'filter' => [
-//                        0 => 'smth',
-//
-//                ]
+                'filter' => [
+                        '>' => 'Поступления',
+                        '<' => 'Траты',
+
+                ]
             ],
             [
                 'label' => 'Category',
                 'attribute' => 'category.name',
                 'filter' =>
-                    ArrayHelper::map(Category::find()
+                    $categories = ArrayHelper::map(Category::find()
                         ->having(['family_id' => Yii::$app->user->identity->family_id])
                         ->all(), 'name', 'name'),
             ],
@@ -56,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Account',
                 'attribute' => 'account.name',
                 'filter' =>
-                    ArrayHelper::map(
+                    $accounts = ArrayHelper::map(
                         Accounts::find()
                             ->having(['family_id' => Yii::$app->user->identity->family_id])
                             ->all(), 'name', 'name'),
@@ -65,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Author',
                 'attribute' => 'profile.first_name',
                 'filter' =>
-                    ArrayHelper::map(
+                    $authors = ArrayHelper::map(
                         Profile::find()
                             ->having(['family_id' => Yii::$app->user->identity->family_id])
                             ->all(), 'first_name', 'first_name'),
@@ -99,23 +100,39 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
 
 
-
-
-        foreach ($dataProvider->getModels() as $model)
-        {
-            $arr[] = [
-                $model->category->name,
-                 $model->amount,
-
+        /**
+         * Вся отфильтрованная таблица
+         */
+        foreach ($dataProvider->getModels() as $model) {
+            $filterData[] = [
+                'amount' => $model->amount,
+                'category' => $model->category->name,
+                'author' => $model->profile->first_name,
             ];
         }
 
-//        foreach ($dataProvider->getModels() as $model)
-//        {
-//            $e[] = $model->profile->first_name;
-//        }
-//        var_dump($a);
-//        var_dump($arr);
+        /**
+         * таблица с уникальными категориями и суммой транзакций по ним
+         */
+        if (isset($filterData)) {
+            foreach ($filterData as $key => $item) {
+                foreach ($categories as $category) {
+                    if ($item['category'] == $category) {
+                        $categorySum[$category] = isset($categorySum[$category]) ? $categorySum[$category] + $item['amount'] : $item['amount'];
+                    }
+                }
+            }
+        };
+
+
+        /**
+         * вывод тест
+         */
+        if (isset($filterData)) {
+            var_dump($categorySum);
+//            var_dump($filterData);
+        };
+
         ?>
     </pre>
     <p>
@@ -178,35 +195,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         'name' => 'Joe',
                         'data' => [4, 3, 3, 9, 0],
                     ],
-                    [
-                        'type' => 'spline',
-                        'name' => 'Average',
-                        'data' => [3, 2.67, 3, 6.33, 3.33],
-                        'marker' => [
-                            'lineWidth' => 2,
-                            'lineColor' => new JsExpression('Highcharts.getOptions().colors[3]'),
-                            'fillColor' => 'white',
-                        ],
-                    ],
+
                     [
                         'type' => 'pie',
                         'name' => 'Total consumption',
                         'data' => [
-                            [
-                                'name' => 'Jane',
-                                'y' => 13,
-                                'color' => new JsExpression('Highcharts.getOptions().colors[0]'), // Jane's color
-                            ],
-                            [
-                                'name' => 'John',
-                                'y' => 23,
-                                'color' => new JsExpression('Highcharts.getOptions().colors[1]'), // John's color
-                            ],
-                            [
-                                'name' => 'Joe',
-                                'y' => 19,
-                                'color' => new JsExpression('Highcharts.getOptions().colors[2]'), // Joe's color
-                            ],
+                            [foreach ($categorySum as $key => $value) {
+                                return [
+
+]                                  'name' => $key,
+                                    'value' => $value,
+                                    ];
+                            };],
                         ],
                         'center' => [100, 80],
                         'size' => 100,
