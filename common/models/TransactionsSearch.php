@@ -14,6 +14,7 @@ class TransactionsSearch extends Transactions
 {
     public $date_from;
     public $date_to;
+    public $smth;
     /**
      * {@inheritdoc}
      */
@@ -26,9 +27,10 @@ class TransactionsSearch extends Transactions
     {
         return [
             [['id', 'user_id', 'category_id', 'account_id', 'profile_id', 'family_id'], 'integer'],
-            [['amount'], 'number'],
+            [['amount'], 'safe'],
             [['created_at', 'date', 'category.name', 'account.name', 'profile.first_name'], 'safe'],
             [['date_from', 'date_to'], 'date', 'format' => 'php:d M. Y'],
+            [['smth'], 'string'],
         ];
     }
 
@@ -91,12 +93,16 @@ class TransactionsSearch extends Transactions
         // grid filtering conditions
         $query->andFilterWhere([
             'amount' => $this->amount,
+
             'category.name' => $this->getAttribute('category.name'),
             'account.name' => $this->getAttribute('account.name'),
             'profile.first_name' => $this->getAttribute('profile.first_name'),
             'created_at' => $this->created_at,
             'date' => $this->date,
         ]);
+
+        $query->andFilterHaving(['>', 'amount', $this->amount]);
+
         $query
             ->andFilterWhere(['>=', 'date', $this->date_from ? strtotime($this->date_from . '00:00:00') : null])
             ->andFilterWhere(['<=', 'date', $this->date_to ? strtotime($this->date_to . '23:59:59') : null]);

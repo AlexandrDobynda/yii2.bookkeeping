@@ -21,7 +21,9 @@
         "kartik-v/yii2-widget-datepicker": "dev-master",
         "kartik-v/yii2-widgets": "*",
         "kartik-v/yii2-field-range": "*",
-        "microinginer/yii2-cbrf-rates": "dev-master"
+        "microinginer/yii2-cbrf-rates": "dev-master",
+        "grozzzny/depends": "dev-master",
+        "miloschuman/yii2-highcharts-widget": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

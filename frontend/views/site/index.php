@@ -14,7 +14,7 @@ $this->title = 'My Yii Application';
             <?php if(Yii::$app->user->isGuest) { ?>
 
                 <p>
-                    <?= Html::a('Create account', ['signup'], ['class' => 'btn btn-primary btn-block']) ?>
+                    <?= Html::a('Create account', ['signup'], ['class' => 'btn-primary btn btn-block']) ?>
                 </p>
 
                 <p>
@@ -43,7 +43,7 @@ $this->title = 'My Yii Application';
                             'data' => [
                                 'method' => 'post'
                             ],
-                            'class' => 'btn btn-warning btn-block'
+                            'class' => 'btn btn-success btn-block'
                         ]
                     );?>
                 </p>
