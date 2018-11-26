@@ -10,6 +10,7 @@ use common\models\Accounts;
 use common\models\Profile;
 use miloschuman\highcharts\Highcharts;
 use yii\web\JsExpression;
+use frontend\components\transactions\TransactionsSumForGraphic;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TransactionsSearch */
@@ -99,62 +100,20 @@ $this->params['breadcrumbs'][] = $this->title;
     <pre>
         <?php
 
+        $pieGraphicData = TransactionsSumForGraphic::getDataForPieGraphic($dataProvider, $categories);
 
-        /**
-         * Вся отфильтрованная таблица
-         */
-        foreach ($dataProvider->getModels() as $model) {
-            $filterData[] = [
-                'amount' => $model->amount,
-                'category' => $model->category->name,
-                'author' => $model->profile->first_name,
-            ];
-        }
-
-        /**
-         * таблица с уникальными категориями и суммой транзакций по ним
-         */
-        if (isset($filterData)) {
-            foreach ($filterData as $key => $item) {
-                foreach ($categories as $category) {
-                    if ($item['category'] == $category) {
-                        $categorySum[$category] = isset($categorySum[$category]) ? $categorySum[$category] + $item['amount'] : $item['amount'];
-                    }
-                }
-            }
-        };
-
-
+        $test = TransactionsSumForGraphic::getFilteredDataFromDataProvider($dataProvider);
         /**
          * вывод тест
          */
-        if (isset($filterData)) {
-            var_dump($categorySum);
-//            var_dump($filterData);
-        };
+//        var_dump();
+
+
 
         ?>
     </pre>
     <p>
         <?=
-//        Highcharts::widget([
-//            'options' => [
-//                'title' => ['text' => 'Sample title - pie chart'],
-//                'plotOptions' => [
-//                    'pie' => [
-//                        'cursor' => 'pointer',
-//                    ],
-//                ],
-//                'series' => [
-//                    [ // new opening bracket
-//                        'type' => 'pie',
-//                        'name' => 'Money spent',
-//                        'data' => $arr,
-//                    ] // new closing bracket
-//                ],
-//            ],
-//        ]);
-
         Highcharts::widget([
             'scripts' => [
                 'modules/exporting',
@@ -165,12 +124,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'text' => 'Combination chart',
                 ],
                 'xAxis' => [
-                    'categories' => ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums'],
+                    'categories' => array_keys($categories),
                 ],
                 'labels' => [
                     'items' => [
                         [
-                            'html' => 'Total fruit consumption',
+                            'html' => 'Transactions graphic',
                             'style' => [
                                 'left' => '50px',
                                 'top' => '18px',
@@ -179,43 +138,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ],
                 ],
-                'series' => [
-                    [
-                        'type' => 'column',
-                        'name' => 'Jane',
-                        'data' => [3, 2, 1, 3, 4],
-                    ],
-                    [
-                        'type' => 'column',
-                        'name' => 'John',
-                        'data' => [2, 3, 5, 7, 6],
-                    ],
-                    [
-                        'type' => 'column',
-                        'name' => 'Joe',
-                        'data' => [4, 3, 3, 9, 0],
-                    ],
-
-                    [
-                        'type' => 'pie',
-                        'name' => 'Total consumption',
-                        'data' => [
-                            [foreach ($categorySum as $key => $value) {
-                                return [
-
-]                                  'name' => $key,
-                                    'value' => $value,
-                                    ];
-                            };],
-                        ],
-                        'center' => [100, 80],
-                        'size' => 100,
-                        'showInLegend' => false,
-                        'dataLabels' => [
-                            'enabled' => false,
-                        ],
-                    ],
-                ],
+                'series' => TransactionsSumForGraphic::getDataForColumnGraphic($dataProvider, $categories, $authors),
             ]
         ]);?>
     </p>
