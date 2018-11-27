@@ -126,7 +126,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ],
                 ],
-                'series' => TransactionsSumForGraphic::getDataForColumnGraphic($dataProvider, $authors),
+                'series' => TransactionsSumForGraphic::prepareDataWithSettings($dataProvider, $authors),
             ]
         ]);?>
     </p>

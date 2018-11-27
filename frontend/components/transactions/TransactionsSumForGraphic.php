@@ -32,9 +32,9 @@ class TransactionsSumForGraphic
     public static function getDataForPieGraphic(ActiveDataProvider $dataProvider): array
     {
         $filteredData = static::getFilteredDataFromDataProvider($dataProvider);
-        $categories = static ::getActiveCategories($dataProvider);
+        $categories = static::getActiveCategories($dataProvider);
         $categoriesSum = [];
-        $result = [];
+
         foreach ($filteredData as $key => $item) {
             foreach ($categories as $category) {
                 if ($item['category'] == $category) {
@@ -48,13 +48,9 @@ class TransactionsSumForGraphic
             }
         };
 
-//        //todo переделать.
-        foreach ($categoriesSum as $categories) {
-            $result[] = $categories;
-        }
-
-        return $result;
+        return array_values($categoriesSum);
     }
+
 
     /**
      * @param ActiveDataProvider $dataProvider
@@ -64,10 +60,8 @@ class TransactionsSumForGraphic
     public static function getDataForColumnGraphic(ActiveDataProvider $dataProvider, array $names): array
     {
         $filteredData = static::getFilteredDataFromDataProvider($dataProvider);
-        $pieData = static::getDataForPieGraphic($dataProvider);
-        $categories = static ::getActiveCategories($dataProvider);
+        $categories = static::getActiveCategories($dataProvider);
         $categoriesSum = [];
-        $result = [];
 
         foreach ($filteredData as $key => $item) {
             foreach ($names as $name) {
@@ -76,9 +70,8 @@ class TransactionsSumForGraphic
                     $categoriesSum[$name]['name'] = $name;
 
                     foreach ($categories as $key => $category) {
-                        if (!isset($categoriesSum[$name]['data'][$key])) {
-                            $categoriesSum[$name]['data'][$key] = 0;
-                        }
+                        isset($categoriesSum[$name]['data'][$key]) ?: $categoriesSum[$name]['data'][$key] = 0;
+
                         if ($item['category'] == $category) {
                             $categoriesSum[$name]['data'][$key] += abs($item['amount']);
                         }
@@ -87,11 +80,18 @@ class TransactionsSumForGraphic
             }
         };
 
-        //        //todo переделать.
-        foreach ($categoriesSum as $categories) {
-            $result[] = $categories;
-        }
+        return array_values($categoriesSum);
+    }
 
+    /**
+     * @param ActiveDataProvider $dataProvider
+     * @param array $names
+     * @return array
+     */
+    public static function prepareDataWithSettings(ActiveDataProvider $dataProvider, array $names): array
+    {
+        $pieData = static::getDataForPieGraphic($dataProvider);
+        $result = static::getDataForColumnGraphic($dataProvider, $names);
         $result[] = [
             'type' => 'pie',
             'name' => 'Total consumption',
@@ -107,16 +107,15 @@ class TransactionsSumForGraphic
         return $result;
     }
 
+
     /**
      * @param ActiveDataProvider $dataProvider
      * @return array
      */
     public static function getActiveCategories(ActiveDataProvider $dataProvider): array
     {
-        $filtredData = static ::getFilteredDataFromDataProvider($dataProvider);
-
-        $allCategories = ArrayHelper::getColumn($filtredData, 'category');
-
+        $filteredData = static::getFilteredDataFromDataProvider($dataProvider);
+        $allCategories = ArrayHelper::getColumn($filteredData, 'category');
         return array_values(array_unique($allCategories));
     }
 }
