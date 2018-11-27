@@ -97,21 +97,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-    <pre>
-        <?php
-
-        $pieGraphicData = TransactionsSumForGraphic::getDataForPieGraphic($dataProvider, $categories);
-
-        $test = TransactionsSumForGraphic::getFilteredDataFromDataProvider($dataProvider);
-        /**
-         * вывод тест
-         */
-//        var_dump();
-
-
-
-        ?>
-    </pre>
     <p>
         <?=
         Highcharts::widget([
@@ -120,25 +105,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 'themes/grid-light',
             ],
             'options' => [
+//                'chart' => [
+//                    'height' => '35%',
+//                ],
                 'title' => [
                     'text' => 'Combination chart',
                 ],
                 'xAxis' => [
-                    'categories' => array_keys($categories),
+                    'categories' => TransactionsSumForGraphic::getActiveCategories($dataProvider),
                 ],
                 'labels' => [
                     'items' => [
                         [
-                            'html' => 'Transactions graphic',
+                            'html' => 'Transactions',
                             'style' => [
                                 'left' => '50px',
-                                'top' => '18px',
+                                'top' => '-48px',
                                 'color' => new JsExpression('(Highcharts.theme && Highcharts.theme.textColor) || "black"'),
                             ],
                         ],
                     ],
                 ],
-                'series' => TransactionsSumForGraphic::getDataForColumnGraphic($dataProvider, $categories, $authors),
+                'series' => TransactionsSumForGraphic::getDataForColumnGraphic($dataProvider, $authors),
             ]
         ]);?>
     </p>

@@ -3,6 +3,7 @@
 namespace frontend\components\transactions;
 
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 
 class TransactionsSumForGraphic
 {
@@ -26,52 +27,47 @@ class TransactionsSumForGraphic
 
     /**
      * @param ActiveDataProvider $dataProvider
-     * @param array $categoriesList
      * @return array
      */
-    public static function getDataForPieGraphic(ActiveDataProvider $dataProvider, array $categoriesList): array
+    public static function getDataForPieGraphic(ActiveDataProvider $dataProvider): array
     {
         $filteredData = static::getFilteredDataFromDataProvider($dataProvider);
+        $categories = static ::getActiveCategories($dataProvider);
         $categoriesSum = [];
-        $test = [];
+        $result = [];
         foreach ($filteredData as $key => $item) {
-            foreach ($categoriesList as $category) {
+            foreach ($categories as $category) {
                 if ($item['category'] == $category) {
                     $categoriesSum[$category]['name'] = $category;
 
                     if (!isset($categoriesSum[$category]['y'])) {
                         $categoriesSum[$category]['y'] = 0;
                     }
-                    $categoriesSum[$category]['y']  += $item['amount'] > 0 ? $item['amount'] : $item['amount'] * (-1);
+                    $categoriesSum[$category]['y'] += abs($item['amount']);
                 }
             }
         };
 
 //        //todo переделать.
         foreach ($categoriesSum as $categories) {
-            $test[] = $categories;
+            $result[] = $categories;
         }
 
-        return $test;
+        return $result;
     }
 
     /**
      * @param ActiveDataProvider $dataProvider
-     * @param array $categoriesList
      * @param array $names
      * @return array
      */
-    public static function getDataForColumnGraphic(
-        ActiveDataProvider $dataProvider,
-        array $categoriesList,
-        array $names
-    ): array
+    public static function getDataForColumnGraphic(ActiveDataProvider $dataProvider, array $names): array
     {
         $filteredData = static::getFilteredDataFromDataProvider($dataProvider);
-        $pieData = static::getDataForPieGraphic($dataProvider, $categoriesList);
+        $pieData = static::getDataForPieGraphic($dataProvider);
+        $categories = static ::getActiveCategories($dataProvider);
         $categoriesSum = [];
         $result = [];
-        $categories = array_keys($categoriesList);
 
         foreach ($filteredData as $key => $item) {
             foreach ($names as $name) {
@@ -84,7 +80,7 @@ class TransactionsSumForGraphic
                             $categoriesSum[$name]['data'][$key] = 0;
                         }
                         if ($item['category'] == $category) {
-                            $categoriesSum[$name]['data'][$key] += $item['amount'] > 0 ? $item['amount'] : $item['amount'] * (-1);
+                            $categoriesSum[$name]['data'][$key] += abs($item['amount']);
                         }
                     }
                 }
@@ -97,18 +93,31 @@ class TransactionsSumForGraphic
         }
 
         $result[] = [
-                'type' => 'pie',
-                'name' => 'Total consumption',
-                'data' => $pieData,
+            'type' => 'pie',
+            'name' => 'Total consumption',
+            'data' => $pieData,
 
-                'center' => [100, 80],
-                'size' => 110,
-                'showInLegend' => false,
-                'dataLabels' => [
-                    'enabled' => false,
-                ],
+            'center' => [60, 5],
+            'size' => 110,
+            'showInLegend' => false,
+            'dataLabels' => [
+                'enabled' => false,
+            ],
         ];
         return $result;
+    }
+
+    /**
+     * @param ActiveDataProvider $dataProvider
+     * @return array
+     */
+    public static function getActiveCategories(ActiveDataProvider $dataProvider): array
+    {
+        $filtredData = static ::getFilteredDataFromDataProvider($dataProvider);
+
+        $allCategories = ArrayHelper::getColumn($filtredData, 'category');
+
+        return array_values(array_unique($allCategories));
     }
 }
 
