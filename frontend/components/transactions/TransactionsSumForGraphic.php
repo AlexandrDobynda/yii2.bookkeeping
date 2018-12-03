@@ -94,10 +94,10 @@ class TransactionsSumForGraphic
         $result = static::getDataForColumnGraphic($dataProvider, $names);
         $result[] = [
             'type' => 'pie',
-            'name' => 'Total consumption',
+            'name' => 'Всего по категории',
             'data' => $pieData,
 
-            'center' => [60, 5],
+            'center' => [60, 10],
             'size' => 110,
             'showInLegend' => false,
             'dataLabels' => [

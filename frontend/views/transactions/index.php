@@ -109,7 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //                    'height' => '35%',
 //                ],
                 'title' => [
-                    'text' => 'Combination chart',
+                    'text' => 'График транзакций',
                 ],
                 'xAxis' => [
                     'categories' => TransactionsSumForGraphic::getActiveCategories($dataProvider),
@@ -117,10 +117,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'labels' => [
                     'items' => [
                         [
-                            'html' => 'Transactions',
+                            'html' => 'Суммарно',
                             'style' => [
                                 'left' => '50px',
-                                'top' => '-48px',
+                                'top' => '-45px',
                                 'color' => new JsExpression('(Highcharts.theme && Highcharts.theme.textColor) || "black"'),
                             ],
                         ],
