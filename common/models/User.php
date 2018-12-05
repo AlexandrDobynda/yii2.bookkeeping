@@ -186,7 +186,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function getIdList(): array
     {
-        return \yii\helpers\ArrayHelper::getColumn(static::find()->all(), 'id');
+        return \yii\helpers\ArrayHelper::getColumn(static::find()->where(['not like', 'username', 'test'])->all(), 'id');
     }
 
     /**

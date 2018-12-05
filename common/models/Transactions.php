@@ -96,15 +96,10 @@ class Transactions extends \yii\db\ActiveRecord
 
         foreach ($userIdList as $key => $id) {
             for ($i = 0; $i < rand(1, $transactionsCount); $i++) {
-
-                foreach (static::makeTransaction($id, $key, $minAmount, $maxAmount) as $item) {
-                    $result[] = $item;
-                }
+                $result[] = static::makeTransaction($id, $key, $minAmount, $maxAmount);
             }
 
-            foreach (static::makeTransaction($id, $key, $minAmount, $maxAmount, $salary) as $item) {
-                $result[] = $item;
-                }
+            $result[] = static::makeTransaction($id, $key, $minAmount, $maxAmount, $salary);
         }
 
         return $result;
@@ -123,8 +118,8 @@ class Transactions extends \yii\db\ActiveRecord
     {
         $familyId = User::findOne($id)->family_id;
         $accountIdList = array_reverse(Accounts::getIdList());
-        $categoryIdList = array_reverse(Category::getIdList($familyId));
         $profileIdList = array_reverse(Profile::getIdList());
+        $categoryIdList = Category::getIdList($familyId);
 
         return [
             $id,
