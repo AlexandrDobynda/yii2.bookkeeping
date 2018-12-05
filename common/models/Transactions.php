@@ -5,6 +5,7 @@ namespace common\models;
 use frontend\components\behaviors\TransactionsCalculateBehavior;
 use frontend\components\behaviors\TransactionsInfoBehavior;
 use frontend\components\behaviors\TransactionsTimeBehavior;
+use phpDocumentor\Reflection\Types\Integer;
 use Yii;
 
 /**
@@ -82,16 +83,59 @@ class Transactions extends \yii\db\ActiveRecord
     }
 
     /**
+     * @param int $minAmount
+     * @param int $maxAmount
+     * @param int $salary
+     * @param int $transactionsCount
      * @return array
      */
-    public static function prepareTransactions(): array
+    public static function prepareTransactionsArray(int $minAmount = 1, int $maxAmount = 5000, int $salary = 20000, int $transactionsCount = 4): array
     {
         $userIdList = array_reverse(User::getIdList());
-        $accuntIdList = array_reverse(Accounts::getIdList());
-        $categoryIdList = array_reverse(Category::getIdList());
+        $result = [];
+
+        foreach ($userIdList as $key => $id) {
+            for ($i = 0; $i < rand(1, $transactionsCount); $i++) {
+
+                foreach (static::makeTransaction($id, $key, $minAmount, $maxAmount) as $item) {
+                    $result[] = $item;
+                }
+            }
+
+            foreach (static::makeTransaction($id, $key, $minAmount, $maxAmount, $salary) as $item) {
+                $result[] = $item;
+                }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param int $id
+     * @param int $key
+     * @param int $minAmount
+     * @param int $maxAmount
+     * @param int|null $salary
+     * @param int $timeRange
+     * @return array
+     */
+    private static function makeTransaction(int $id, int $key, int $minAmount, int $maxAmount, int $salary = null,int $timeRange = 604800):array
+    {
+        $familyId = User::findOne($id)->family_id;
+        $accountIdList = array_reverse(Accounts::getIdList());
+        $categoryIdList = array_reverse(Category::getIdList($familyId));
         $profileIdList = array_reverse(Profile::getIdList());
 
-        return array();
+        return [
+            $id,
+            $salary ? $salary : -rand($minAmount, $maxAmount) ,
+            $accountIdList[$key],
+            $salary ? $categoryIdList[0] : $categoryIdList[rand(1, count($categoryIdList) - 1)],
+            $profileIdList[$key],
+            time(),
+            time() + rand(-$timeRange, $timeRange),
+            $familyId
+        ];
     }
 
     /**

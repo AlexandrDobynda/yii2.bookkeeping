@@ -72,11 +72,12 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
+     * @param int $familyId
      * @return array
      */
-    public static function getIdList(): array
+    public static function getIdList(int $familyId): array
     {
-        return \yii\helpers\ArrayHelper::getColumn(static::find()->all(), 'id');
+        return \yii\helpers\ArrayHelper::getColumn(static::find()->where(['family_id' => $familyId])->all(), 'id');
     }
 
     /**
