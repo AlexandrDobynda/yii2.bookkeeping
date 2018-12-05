@@ -12,15 +12,17 @@ class m181203_141822_data_for_profile_table extends Migration
      */
     public function safeUp()
     {
+        $userIdList = array_reverse(\common\models\User::getIdList());
+
 
         $this->batchInsert('{{%profile}}', ['user_id', 'first_name', 'family_id'], [
-                [1, 'Вася', 1],
-                [2, 'Петя', 1],
-                [3, 'Юля',  1],
-                [4, 'Вера', 1],
-                [5, 'Игорь',2],
-                [6, 'Федор',2],
-                [7, 'Катя', 2],
+                [$userIdList[6], 'Вася', 1],
+                [$userIdList[5], 'Петя', 1],
+                [$userIdList[4], 'Юля',  1],
+                [$userIdList[3], 'Вера', 1],
+                [$userIdList[2], 'Игорь',2],
+                [$userIdList[1], 'Федор',2],
+                [$userIdList[0], 'Катя', 2],
             ]
         );
 

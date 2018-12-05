@@ -182,6 +182,14 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * @return array
+     */
+    public static function getIdList(): array
+    {
+        return \yii\helpers\ArrayHelper::getColumn(static::find()->all(), 'id');
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getId()

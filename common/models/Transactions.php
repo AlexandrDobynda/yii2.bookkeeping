@@ -82,6 +82,19 @@ class Transactions extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public static function prepareTransactions(): array
+    {
+        $userIdList = array_reverse(User::getIdList());
+        $accuntIdList = array_reverse(Accounts::getIdList());
+        $categoryIdList = array_reverse(Category::getIdList());
+        $profileIdList = array_reverse(Profile::getIdList());
+
+        return array();
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getAccount()

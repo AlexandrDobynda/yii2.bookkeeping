@@ -12,14 +12,16 @@ class m181203_143404_data_for_accounts_table extends Migration
      */
     public function safeUp()
     {
+        $userIdList = array_reverse(\common\models\User::getIdList());
+
         $this->batchInsert('{{%accounts}}', ['user_id', 'name', 'amount', 'family_id', 'currency'], [
-                [1, 'Наличные', 5000, 1, 'RUB'],
-                [2, 'Наличные', 5000, 1, 'RUB'],
-                [3, 'Наличные', 5000, 1, 'RUB'],
-                [4, 'Наличные', 5000, 1, 'RUB'],
-                [5, 'Наличные', 5000, 2, 'RUB'],
-                [6, 'Наличные', 5000, 2, 'RUB'],
-                [7, 'Наличные', 5000, 2, 'RUB'],
+                [$userIdList[6], 'Наличные', 5000, 1, 'RUB'],
+                [$userIdList[5], 'Наличные', 5000, 1, 'RUB'],
+                [$userIdList[4], 'Наличные', 5000, 1, 'RUB'],
+                [$userIdList[3], 'Наличные', 5000, 1, 'RUB'],
+                [$userIdList[2], 'Наличные', 5000, 2, 'RUB'],
+                [$userIdList[1], 'Наличные', 5000, 2, 'RUB'],
+                [$userIdList[0], 'Наличные', 5000, 2, 'RUB'],
             ]
         );
     }

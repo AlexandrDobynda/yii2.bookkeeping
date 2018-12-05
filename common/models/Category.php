@@ -72,6 +72,14 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public static function getIdList(): array
+    {
+        return \yii\helpers\ArrayHelper::getColumn(static::find()->all(), 'id');
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getCreatedBy()
