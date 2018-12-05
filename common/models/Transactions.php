@@ -117,8 +117,8 @@ class Transactions extends \yii\db\ActiveRecord
     private static function makeTransaction(int $id, int $key, int $minAmount, int $maxAmount, int $salary = null,int $timeRange = 604800):array
     {
         $familyId = User::findOne($id)->family_id;
-        $accountIdList = array_reverse(Accounts::getIdList());
-        $profileIdList = array_reverse(Profile::getIdList());
+        $accountIdList = Accounts::getIdList();
+        $profileIdList = Profile::getIdList();
         $categoryIdList = Category::getIdList($familyId);
 
         return [

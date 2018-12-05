@@ -70,7 +70,7 @@ class Profile extends \yii\db\ActiveRecord
      */
     public static function getIdList(): array
     {
-        return \yii\helpers\ArrayHelper::getColumn(static::find()->all(), 'id');
+        return \yii\helpers\ArrayHelper::getColumn(static::find()->where(['not like', 'first_name', 'test'])->all(), 'id');
     }
     /**
      * @return \yii\db\ActiveQuery
