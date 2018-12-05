@@ -91,7 +91,7 @@ class Transactions extends \yii\db\ActiveRecord
      */
     public static function prepareTransactionsArray(int $minAmount = 1, int $maxAmount = 5000, int $salary = 20000, int $transactionsCount = 4): array
     {
-        $userIdList = array_reverse(User::getIdList());
+        $userIdList = User::getIdList();
         $result = [];
 
         foreach ($userIdList as $key => $id) {
