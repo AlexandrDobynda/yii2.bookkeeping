@@ -90,6 +90,8 @@ class TransactionsController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $model->date = date('d-M-Y', $model->date);
+
         return $this->render('update', [
             'model' => $model,
         ]);
