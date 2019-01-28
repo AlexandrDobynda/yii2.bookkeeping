@@ -66,6 +66,7 @@ class TransactionsController extends Controller
     {
         $model = new Transactions();
         $model->date = date('d-M-Y', time());
+        $model->amount = '-';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
