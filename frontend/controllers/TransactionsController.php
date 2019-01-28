@@ -65,6 +65,7 @@ class TransactionsController extends Controller
     public function actionCreate()
     {
         $model = new Transactions();
+        $model->date = date('d-M-Y', time());
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -85,12 +86,11 @@ class TransactionsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->date = date('d-M-Y', $model->date);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
-        $model->date = date('d-M-Y', $model->date);
 
         return $this->render('update', [
             'model' => $model,
