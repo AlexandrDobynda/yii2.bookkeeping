@@ -134,6 +134,17 @@ class Transactions extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return float
+     */
+    public function prepareAmount(): float
+    {
+        $this->amount = str_replace(' ', '', $this->amount);
+        $this->amount = str_replace(',', '.', $this->amount);
+
+        return $this->amount;
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getAccount()

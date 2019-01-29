@@ -68,8 +68,12 @@ class TransactionsController extends Controller
         $model->date = date('d-M-Y', time());
         $model->amount = '-';
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())){
+            $model->prepareAmount();
+
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
@@ -89,8 +93,12 @@ class TransactionsController extends Controller
         $model = $this->findModel($id);
         $model->date = date('d-M-Y', $model->date);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())){
+            $model->prepareAmount();
+
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
